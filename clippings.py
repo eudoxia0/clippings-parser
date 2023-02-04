@@ -2,6 +2,7 @@
 """
 Converts Kindle clippings ('My Clippings.txt') into JSON, CSV, or Markdown.
 """
+import json
 from re import Match, Pattern, compile, match
 
 #
@@ -81,3 +82,12 @@ def filter_by_title(
     clippings: list[dict], title_filter: str | None
 ) -> list[dict]:
     return [c for c in clippings if filter_pred(c, title_filter)]
+
+
+#
+# JSON
+#
+
+
+def dump_json(clippings: list[dict]):
+    print(json.dumps(clippings, indent=True))
