@@ -109,3 +109,40 @@ def dump_csv(clippings: list[dict]):
     writer.writeheader()
     for row in clippings:
         writer.writerow(row)
+
+
+#
+# Markdown
+#
+
+
+def remove_duplicates(lst: list[str]) -> list[str]:
+    seen: set[str] = set()
+    res: list[str] = []
+    for elem in lst:
+        if not (elem in seen):
+            seen.add(elem)
+            res.append(elem)
+    return res
+
+
+def dump_markdown(clippings: list[dict]):
+    # Nothing to do.
+    if len(clippings) == 0:
+        return
+    # Group by title.
+    all_titles: list[str] = remove_duplicates(c["title"] for c in clippings)
+    for title in all_titles:
+        print(f"# {title}")
+        filtered: list[dict] = filter_by_title(clippings, title)
+        first: bool = True
+        for clip in filtered:
+            if first:
+                first = False
+            else:
+                print("---")
+            print()
+            text: str = clip["text"]
+            assert len(title) > 0
+            print(text)
+            print()
