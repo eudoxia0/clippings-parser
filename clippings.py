@@ -77,5 +77,7 @@ def filter_pred(c: dict, title_filter: str | None) -> bool:
         return c["title"] == title_filter
 
 
-def filter_by_title(clippings: list[dict], title_filter: str | None) -> list[dict]:
+def filter_by_title(
+    clippings: list[dict], title_filter: str | None
+) -> list[dict]:
     return [c for c in clippings if filter_pred(c, title_filter)]
