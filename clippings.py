@@ -56,7 +56,7 @@ def parse_clipping(block: str) -> dict:
     assert lines[2] == ""
     # Extract the important stuff.
     title_line: str = lines[0]
-    source_line: str = lines[1]
+    # source_line: str = lines[1]
     text_block: list[str] = [line for line in lines[3:] if line.strip() != ""]
     # Parse the title and author.
     title: str = parse_title(title_line)
