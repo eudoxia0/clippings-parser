@@ -1,0 +1,1 @@
+`clippings.py` is a script to export your Kindle clippings to JSON, CSV, or Markdown.
