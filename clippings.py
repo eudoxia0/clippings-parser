@@ -63,3 +63,19 @@ def parse_clipping(block: str) -> dict:
     author: str | None = parse_author(title_line)
     # Construct a JSON object.
     return {"title": title, "author": author, "text": "\n".join(text_block)}
+
+
+#
+# Filtering
+#
+
+
+def filter_pred(c: dict, title_filter: str | None) -> bool:
+    if title_filter is None:
+        return True
+    else:
+        return c["title"] == title_filter
+
+
+def filter_by_title(clippings: list[dict], title_filter: str | None) -> list[dict]:
+    return [c for c in clippings if filter_pred(c, title_filter)]
