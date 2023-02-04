@@ -50,8 +50,8 @@ def parse_author(title_line: str) -> str | None:
 def parse_clipping(block: str) -> dict:
     # Split the block into lines.
     lines: list[str] = block.split("\n")
-    # Every clipping is of the form: title \n location \n\n text. So assert that there are
-    # more than three lines.
+    # Every clipping is of the form: title \n location \n\n text. So assert
+    # that there are more than three lines.
     assert len(lines) > 3
     assert lines[2] == ""
     # Extract the important stuff.
