@@ -146,3 +146,34 @@ def dump_markdown(clippings: list[dict]):
             assert len(title) > 0
             print(text)
             print()
+
+
+#
+# Entrypoint
+#
+
+
+def main(output_format: str, title_filter: str | None):
+    # Read the entire stdin as a string.
+    contents: str = sys.stdin.read()
+    # The clippings are CRLF, so trim that.
+    contents = contents.replace("\r", "")
+    # Split by delimiter.
+    blocks: list[str] = contents.split(CLIPPINGS_DELIMITER)
+    # Trim any empty blocks, typically this will be the last item in the list.
+    blocks = [b for b in blocks if b.strip() != ""]
+    # Parse each clipping.
+    clippings: list[dict] = [parse_clipping(b) for b in blocks]
+    # Sort.
+    clippings = sorted(
+        clippings, key=lambda d: (d["author"] or "") + ":" + d["title"]
+    )
+    # Filter by title.
+    clippings = filter_by_title(clippings, title_filter)
+    # Dispatch on the output format.
+    dispatch = {
+        "json": dump_json,
+        "csv": dump_csv,
+        "md": dump_markdown,
+    }
+    dispatch[output_format](clippings)
