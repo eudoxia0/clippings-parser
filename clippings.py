@@ -45,3 +45,21 @@ def parse_author(title_line: str) -> str | None:
         return matches.group(2).strip()
     # On failure, return `None`.
     return None
+
+
+def parse_clipping(block: str) -> dict:
+    # Split the block into lines.
+    lines: list[str] = block.split("\n")
+    # Every clipping is of the form: title \n location \n\n text. So assert that there are
+    # more than three lines.
+    assert len(lines) > 3
+    assert lines[2] == ""
+    # Extract the important stuff.
+    title_line: str = lines[0]
+    source_line: str = lines[1]
+    text_block: list[str] = [l for l in lines[3:] if l.strip() != ""]
+    # Parse the title and author.
+    title: str = parse_title(title_line)
+    author: str | None = parse_author(title_line)
+    # Construct a JSON object.
+    return {"title": title, "author": author, "text": "\n".join(text_block)}
