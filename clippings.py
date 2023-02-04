@@ -4,6 +4,10 @@ Converts Kindle clippings ('My Clippings.txt') into JSON, CSV, or Markdown.
 """
 from re import Match, Pattern, compile, match
 
+#
+# Parsing
+#
+
 # Clippings are separated by this string.
 CLIPPINGS_DELIMITER: str = "==========\n"
 
