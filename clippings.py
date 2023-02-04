@@ -2,6 +2,7 @@
 """
 Converts Kindle clippings ('My Clippings.txt') into JSON, CSV, or Markdown.
 """
+import argparse
 import csv
 import json
 import sys
@@ -177,3 +178,22 @@ def main(output_format: str, title_filter: str | None):
         "md": dump_markdown,
     }
     dispatch[output_format](clippings)
+
+
+if __name__ == "__main__":
+    # Parse CLI arguments.
+    parser = argparse.ArgumentParser(
+        prog="clippings",
+        description="Turns Kindle clippings into JSON, CSV, or Markdown.",
+    )
+    parser.add_argument(
+        "--format",
+        help="The output format.",
+        choices=["json", "csv", "md"],
+        default="json",
+    )
+    parser.add_argument(
+        "--title", help="Filter only clippings with the given title."
+    )
+    args = parser.parse_args()
+    main(args.format, args.title)
