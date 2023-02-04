@@ -32,3 +32,16 @@ def parse_title(title_line: str) -> str:
             return title
     # On failure, return the title line unchanged.
     return title_line.strip()
+
+
+def parse_author(title_line: str) -> str | None:
+    # Try parsing an EPUB-style title.
+    matches: Match[str] = match(EPUB_TITLE_RE, title_line)
+    if matches:
+        return matches.group(2).strip()
+    # Try parsing a Calibre-style title.
+    matches = match(PDF_TITLE_RE, title_line)
+    if matches:
+        return matches.group(2).strip()
+    # On failure, return `None`.
+    return None
