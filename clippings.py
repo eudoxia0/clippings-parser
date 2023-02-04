@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 """
 Converts Kindle clippings ('My Clippings.txt') into JSON, CSV, or Markdown.
+
+# Usage
+
+Simply:
+
+    cat 'My Clippings.txt' | ./clippings.py
+
+Default output is JSON. Pass `--format=csv` or `--format=md` to dump the output
+as CSV or Markdown.
+
+To extract only clippings for a specific work, pass `--title=foo`.
 """
 import argparse
 import csv
